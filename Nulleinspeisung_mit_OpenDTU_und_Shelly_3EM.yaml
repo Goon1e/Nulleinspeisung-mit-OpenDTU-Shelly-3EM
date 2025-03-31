@@ -1,107 +1,168 @@
 blueprint:
-  name: "Nulleinspeisung mit OpenDTU & Shelly 3EM"
-  description: "Regelt die Wechselrichterleistung dynamisch bei Änderung der Netzleistung."
+  name: Nulleinspeisung mit OpenDTU & Shelly 3EM
+  description: Regelt die Wechselrichterleistung dynamisch bei Änderung der Netzleistung.
   domain: automation
   input:
     sensor_power_total:
-      name: "Netzleistungs-Sensor (Shelly 3EM)"
-      description: "Wähle die Entität, die die Netzleistung misst (positiv = Einspeisung, negativ = Bezug)."
+      name: Netzleistungs-Sensor (Shelly 3EM)
+      description: Wähle die Entität, die die Netzleistung misst (positiv = Einspeisung,
+        negativ = Bezug).
+      default: []
       selector:
-        entity:
-    sensor_pv_output:
-      name: "PV-Leistungs-Sensor (OpenDTU)"
-      description: "Wähle die Entität, die die aktuelle PV-Leistung misst."
-      selector:
-        entity:
-    set_pv_limit:
-      name: "Wechselrichter Limit-Entität"
-      description: "Wähle die Entität, die zur Begrenzung der Wechselrichterleistung genutzt wird."
-      selector:
-        entity:
-    max_power:
-      name: "Maximale PV-Leistung (W)"
-      description: "Die maximale erlaubte Wechselrichterleistung."
-      default: 3000
-      selector:
-        number:
-          min: 100
-          max: 10000
-          step: 50
-          unit_of_measurement: "W"
-    min_power:
-      name: "Minimale PV-Leistung (W)"
-      description: "Die minimal erlaubte Wechselrichterleistung."
-      default: 0
-      selector:
-        number:
-          min: 0
-          max: 1000
-          step: 10
-          unit_of_measurement: "W"
+        entity: {}
     power_reserve:
-      name: "Überschuß Reserve (W)"
-      description: "Die Einspeise-Reserve für Schwankungen beim Bezug."
+      name: Überschuß Reserve (W)
+      description: Die Einspeise-Reserve für Schwankungen beim Bezug. Stelle hier die (geringe) Soll-Leistung ein, die ins Netz eingespeist werden darf, um eigene Kleinverbraucher abzupuffern.   
       default: 50
       selector:
         number:
-          min: 0
-          max: 1000
-          step: 10
-          unit_of_measurement: "W"
-    use_percentage:
-      name: "Skaliere auf 0-100 %"
-      description: "Benutzt die Leistungsbegrenzung einen Prozentwert, wird der eingestellte Wert für Maximale PV-Leistung skaliert?"
-      default: true
+          min: 0.0
+          max: 1000.0
+          step: 10.0
+          unit_of_measurement: W
+          mode: slider
+    sensor_pv_output_1:
+      name: PV-Leistungs-Sensor (OpenDTU) der 1. Anlage
+      description: Wähle die Entität, die die aktuelle PV-Leistung misst.
+      default: []
       selector:
-        boolean:
-
+        entity: {}
+    set_pv_limit_1:
+      name: Wechselrichter Limit-Entität der 1. Anlage
+      description: Wähle die Entität, die zur Begrenzung der Wechselrichterleistung der ersten Anlage
+        genutzt wird.
+      default: []
+      selector:
+        entity: {}
+    max_power_1:
+      name: Maximale PV-Leistung (W) der 1. Anlage
+      description: Die maximale erlaubte Wechselrichterleistung der ersten Anlage.
+      default: 3000
+      selector:
+        number:
+          min: 100.0
+          max: 10000.0
+          step: 50.0
+          unit_of_measurement: W
+          mode: slider
+    min_power_1:
+      name: Minimale PV-Leistung (W) der 1. Anlage
+      description: Die minimal erlaubte Wechselrichterleistung der ersten Anlage.
+      default: 0
+      selector:
+        number:
+          min: 0.0
+          max: 1000.0
+          step: 10.0
+          unit_of_measurement: W
+          mode: slider
+    use_percentage_1:
+      name: Skaliere auf 0-100 %
+      description: Benutzt die Leistungsbegrenzung  der ersten Anlage einen Prozentwert, wird der eingestellte
+        Wert für Maximale PV-Leistung skaliert? Falls die Entität für die Leistungsbegrenzung Prozentwerte erfordert, ist diesen Funktion zu aktivieren.
+      default: false
+      selector:
+        boolean: {}
+    sensor_pv_output_2:
+      name: PV-Leistungs-Sensor (OpenDTU) der 2. Anlage
+      description: Wähle die Entität, die die aktuelle PV-Leistung misst.
+      default: []
+      selector:
+        entity: {}
+    set_pv_limit_2:
+      name: Wechselrichter Limit-Entität der 2. Anlage
+      description: Wähle die Entität, die zur Begrenzung der Wechselrichterleistung der zweiten Anlage
+        genutzt wird.
+      default: []
+      selector:
+        entity: {}
+    max_power_2:
+      name: Maximale PV-Leistung (W) der 2. Anlage
+      description: Die maximale erlaubte Wechselrichterleistung der zweiten Anlage.
+      default: 3000
+      selector:
+        number:
+          min: 100.0
+          max: 10000.0
+          step: 50.0
+          unit_of_measurement: W
+          mode: slider
+    min_power_2:
+      name: Minimale PV-Leistung (W) der 2. Anlage
+      description: Die minimal erlaubte Wechselrichterleistung der zweiten Anlage.
+      default: 0
+      selector:
+        number:
+          min: 0.0
+          max: 1000.0
+          step: 10.0
+          unit_of_measurement: W
+          mode: slider
+    use_percentage_2:
+      name: Skaliere auf 0-100 % der 2. Anlage
+      description: Benutzt die Leistungsbegrenzung der zweiten Anlage einen Prozentwert, wird der eingestellte
+        Wert für Maximale PV-Leistung skaliert? Falls die Entität für die Leistungsbegrenzung Prozentwerte erfordert, ist diesen Funktion zu aktivieren.
+      default: false
+      selector:
+        boolean: {}
+  source_url: https://github.com/Goon1e/Nulleinspeisung-mit-OpenDTU-Shelly-3EM/blob/main/Nulleinspeisung_mit_OpenDTU_und_Shelly_3EM.yaml
 mode: restart
 max_exceeded: silent
-
 variables:
   sensor_power_total: !input sensor_power_total
-  sensor_pv_output: !input sensor_pv_output
-  set_pv_limit: !input set_pv_limit
-  max_power: !input max_power
-  min_power: !input min_power
   power_reserve: !input power_reserve
-  use_percentage: !input use_percentage
-
+  sensor_pv_output_1: !input sensor_pv_output_1
+  set_pv_limit_1: !input set_pv_limit_1
+  max_power_1: !input max_power_1
+  min_power_1: !input min_power_1
+  use_percentage_1: !input use_percentage_1
+  sensor_pv_output_2: !input sensor_pv_output_2
+  set_pv_limit_2: !input set_pv_limit_2
+  max_power_2: !input max_power_2
+  min_power_2: !input min_power_2
+  use_percentage_2: !input use_percentage_2
 trigger:
-  - platform: state
-    entity_id: !input sensor_power_total
-    for:
-      seconds: 1  # Optional: verhindert zu schnelle Auslösungen bei kurzen Schwankungen
-
+- platform: state
+  entity_id: !input sensor_power_total
+  for:
+    seconds: 1
 action:
-  - alias: "Berechnung der neuen PV-Leistung"
-    variables:
-      current_pv_power: "{{ states(sensor_pv_output) | float(0) }}"
-      current_grid_power: "{{ states(sensor_power_total) | float(0) }}"
-#      power_balance: >
-#        {% set balance = (current_pv_power + current_grid_power) | int %}
-#        {{ balance }}
-      grid_target_value: >
-        {% set target = (power_reserve * -1) | int %}
-        {{ target }}
-      adjustment_value: >
-        {% set adj_value = (current_pv_power + current_grid_power - grid_target_value) %} 
-        {{ adj_value }}
-      new_limit: >
-        {% set limit_new = (adjustment_value) | int %}
-        {% if limit_new > max_power %} {{ max_power }}
-        {% elif limit_new < min_power %} {{ min_power }}
-        {% else %} {{ limit_new }} {% endif %}
-      new_limit_percentage: >
-        {% set limit_perc_new = (new_limit * 100 / max_power) | int %} {{ limit_perc_new }}
-#        {% if limit_perc_new > 100.0 %} {{ 99 }}
-#        {% elif limit_perc_new < min_power %} {{ 1 }}
-#        {% else %} {{ limit_perc_new }} {% endif %}
-
-  - alias: "Neue PV-Leistungsbegrenzung setzen"
-    service: number.set_value
-    target:
-      entity_id: !input set_pv_limit  # Direktes Einfügen ohne Template!
-    data:
-      value: "{%if use_percentage %} {{ new_limit_percentage }}
-              {% else %} {{ new_limit }} {% endif %}"
+- alias: Berechnung der neuen PV-Leistung
+  variables:
+    current_pv_power_1: "{{ states(sensor_pv_output_1) | float(0) }}"
+    current_pv_power_2: "{{ states(sensor_pv_output_2) | float(0) }}"
+    current_grid_power: "{{ states(sensor_power_total) | float(0) }}"
+    grid_target_value: >
+      {% set target = (power_reserve * -1) | int %}
+      {{ target }}
+    adjustment_value: >
+      {% set adj_value = (current_pv_power_1 + current_pv_power_2 + current_grid_power - grid_target_value) %}
+      {{ adj_value }}
+    new_limit_1: >
+      {% set limit_new = (adjustment_value * (max_power_1 / (max_power_1 + max_power_2))) | int %}
+      {% if limit_new > max_power_1 %} {{ max_power_1 }}
+      {% elif limit_new < min_power_1 %} {{ min_power_1 }}
+      {% else %} {{ limit_new }} {% endif %}
+    new_limit_percentage_1: >
+      {% set limit_perc_new = (new_limit_1 * 100 / max_power_1) | int %}
+      {{ limit_perc_new }}
+    new_limit_2: >
+      {% set limit_new = (adjustment_value * (max_power_2 / (max_power_1 + max_power_2))) | int %}
+      {% if limit_new > max_power_2 %} {{ max_power_2 }}
+      {% elif limit_new < min_power_2 %} {{ min_power_2 }}
+      {% else %} {{ limit_new }} {% endif %}
+    new_limit_percentage_2: >
+      {% set limit_perc_new = (new_limit_2 * 100 / max_power_2) | int %}
+      {{ limit_perc_new }}
+- alias: Neue PV-Leistungsbegrenzung 1. Anlage setzen
+  service: number.set_value
+  target:
+    entity_id: !input set_pv_limit_1
+  data:
+    value: '{%if use_percentage_1 %} {{ new_limit_percentage_1 }} {% else %} {{ new_limit_1 }} {% endif %}'
+- alias: Neue PV-Leistungsbegrenzung 2. Anlage setzen
+  service: input_number.set_value
+  target:
+    entity_id: !input set_pv_limit_2
+  data:
+    value: '{%if use_percentage_2 %} {{ new_limit_percentage_2 }} {% else %} {{ new_limit_2 }} {% endif %}'

@@ -99,7 +99,7 @@ action:
 #        {% else %} {{ limit_perc_new }} {% endif %}
 
   - alias: "Neue PV-Leistungsbegrenzung setzen"
-    service: input_number.set_value
+    service: number.set_value
     target:
       entity_id: !input set_pv_limit  # Direktes Einfügen ohne Template!
     data:

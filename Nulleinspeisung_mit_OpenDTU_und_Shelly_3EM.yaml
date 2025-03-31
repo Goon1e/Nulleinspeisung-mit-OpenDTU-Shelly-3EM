@@ -161,7 +161,7 @@ action:
   data:
     value: '{%if use_percentage_1 %} {{ new_limit_percentage_1 }} {% else %} {{ new_limit_1 }} {% endif %}'
 - alias: Neue PV-Leistungsbegrenzung 2. Anlage setzen
-  service: input_number.set_value
+  service: number.set_value
   target:
     entity_id: !input set_pv_limit_2
   data:
